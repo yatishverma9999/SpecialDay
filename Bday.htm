@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños, Ruby 🌙</title>
+    
+    <!-- Professional Fonts & Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Quicksand:wght@300;500;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --deep: #0a0015;
+            --navy: #0d0a2e;
+            --gold: #f5c842;
+            --rose: #ff6b9d;
+            --moon: #fffbe6;
+            --teal: #7fffd4;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--deep); 
+            color: var(--moon); 
+            font-family: 'Quicksand', sans-serif; 
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Fixed Background Stars */
+        #stars-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+        /* Music Player Aesthetic */
+        .music-player {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: var(--glass); backdrop-filter: blur(10px);
+            padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; gap: 15px; transition: 0.3s;
+        }
+        .music-player:hover { border-color: var(--gold); }
+        .control-btn { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 1.2rem; }
+        .track-info { font-size: 0.7rem; font-weight: bold; }
+
+        /* Cinematic Sections */
+        section {
+            min-height: 100vh; width: 100%; position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 60px 20px;
+        }
+
+        /* Section Transitions */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- S1: Intro --- */
+        .moon-circle {
+            width: 150px; height: 150px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fffbe6, #f5c842 60%);
+            box-shadow: 0 0 60px rgba(245,200,66,0.4); margin-bottom: 30px;
+        }
+        .glitch-title {
+            font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5rem);
+            text-align: center; background: linear-gradient(135deg, var(--gold), var(--rose), var(--teal));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* --- S2: Duo Card --- */
+        .duo-card {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 40px; max-width: 550px; width: 100%;
+            backdrop-filter: blur(15px);
+        }
+        .xp-bar { height: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 20px; overflow: hidden; }
+        .xp-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--teal), var(--rose)); transition: 2s ease; }
+
+        /* --- S3: Interactive Cake --- */
+        .cake-container { position: relative; width: 200px; height: 200px; cursor: pointer; }
+        .cake-body { 
+            width: 180px; height: 100px; background: #4d2d18; border-radius: 15px 15px 0 0; 
+            position: absolute; bottom: 0; left: 10px; border-top: 8px solid var(--rose);
+        }
+        .candle { 
+            width: 8px; height: 35px; background: #fff; position: absolute; 
+            top: -42px; left: 50%; transform: translateX(-50%); border-radius: 4px; 
+        }
+        .flame { 
+            width: 12px; height: 20px; background: var(--gold); border-radius: 50%; 
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 0 15px var(--gold); animation: flicker 0.1s infinite alternate;
+        }
+        @keyframes flicker { from { opacity: 0.8; } to { opacity: 1; } }
+
+        /* --- S4: Balloons --- */
+        .balloon-container { position: relative; width: 100%; height: 300px; }
+        .balloon { 
+            position: absolute; font-size: 3rem; cursor: pointer; 
+            animation: float-slow 4s ease-in-out infinite alternate;
+        }
+        @keyframes float-slow { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+
+        /* --- S5: Secret Letter --- */
+        .envelope {
+            width: 280px; height: 180px; background: #1a0a2e; border: 1px solid var(--gold);
+            border-radius: 10px; position: relative; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); transition: 0.5s;
+        }
+        .envelope:hover { transform: translateY(-10px) rotate(-2deg); }
+        .seal { width: 50px; height: 50px; background: #8b0000; border-radius: 50%; border: 2px solid var(--gold); }
+
+        .letter-modal {
+            position: fixed; inset: 0; background: rgba(10, 0, 21, 0.95);
+            display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px;
+        }
+        .parchment {
+            background: #fffbe6; color: #2e2e2e; padding: 40px; max-width: 500px;
+            font-family: 'Dancing Script', cursive; font-size: 1.5rem; line-height: 1.6;
+            border-radius: 5px; box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+            position: relative; transform: scale(0.8); opacity: 0; transition: 0.5s;
+        }
+        .letter-modal.open .parchment { transform: scale(1); opacity: 1; }
+
+        .divider { width: 60px; height: 2px; background: var(--gold); margin: 20px auto; }
+        .lang-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 5px; background: rgba(255,255,255,0.1); margin-right: 5px; color: var(--gold); }
+    </style>
+</head>
+<body>
+
+    <canvas id="stars-canvas"></canvas>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="control-btn" onclick="togglePlay()" id="playBtn">▶️</button>
+        <button class="control-btn" onclick="nextTrack()">⏭️</button>
+        <div class="track-info" id="trackName">Moon Theme 🌙</div>
+    </div>
+
+    <!-- S1: Intro -->
+    <section id="s1">
+        <div class="moon-circle"></div>
+        <h1 class="glitch-title">Feliz Cumpleaños,<br>Ruby ✨</h1>
+        <p style="font-family:'Dancing Script'; font-size:1.6rem; margin-top:15px; color:var(--soft);">A little surprise… from across the oceans 🌊</p>
+        <p style="margin-top:20px; font-size:0.9rem; opacity:0.6; text-align:center;">
+            Ek choti si duniya bani thi Duolingo pe…<br>aur dekho, aaj yahan tak aa gaye 🦉💫
+        </p>
+    </section>
+
+    <!-- S2: Duolingo Lesson (Upgraded Card) -->
+    <section id="s2" class="reveal">
+        <div class="duo-card">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+                <span style="font-size:2rem;">🦉</span>
+                <span style="font-weight:bold; letter-spacing:2px; color:var(--teal); font-size:0.8rem;">TODAY'S LESSON</span>
+            </div>
+            <h2 style="font-family:'Playfair Display'; color:var(--gold); margin-bottom:20px;">"Por qué Ruby es increíble" 💖</h2>
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <p>🌟 Magic is real because she's real.</p>
+                <p>🦋 Deep as the ocean, bright as the sun.</p>
+                <p>🌙 She called him her Moon. <span class="lang-tag">ES</span> <em>El universo lo supo.</em></p>
+                <p>✨ Mexico to India — Same heartbeat.</p>
+            </div>
+            <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+            <p style="font-size:0.7rem; color:var(--teal); margin-top:10px; text-align:right;">+100 XP — Appreciation Streak 🔥</p>
+        </div>
+    </section>
+
+    <!-- S3: Interactive Cake Build -->
+    <section id="s3" class="reveal">
+        <h2 style="font-family:'Dancing Script'; font-size:2.5rem; color:var(--gold); margin-bottom:40px;">Make a wish, Ruby...</h2>
+        <div class="cake-container" onclick="blowCandle()">
+            <div class="cake-body"></div>
+            <div class="candle">
+                <div class="flame" id="flame"></div>
+            </div>
+        </div>
+        <p id="wishHint" style="margin-top:30px; font-weight:bold; color:var(--rose);">Tap the candle to blow! 🕯️</p>
+    </section>
+
+    <!-- S4: Balloon Pop -->
+    <section id="s4" class="reveal">
+        <h2 style="font-family:'Playfair Display'; margin-bottom:40px;">Pop the Balloons! 🎈</h2>
+        <div class="balloon-container">
+            <div class="balloon" style="left:15%; top:10%;" onclick="pop(this, 'You are magic 🌟')">🎈</div>
+            <div class="balloon" style="right:15%; top:20%; animation-delay: 1s;" onclick="pop(this, 'Eres mi Sol ☀️')">🎈</div>
+            <div class="balloon" style="left:20%; bottom:10%; animation-delay: 0.5s;" onclick="pop(this, 'Favorite Human 🦉')">🎈</div>
+            <div class="balloon" style="right:25%; bottom:20%; animation-delay: 1.5s;" onclick="pop(this, 'April 8 🌸')">🎈</div>
+        </div>
+    </section>
+
+    <!-- S5: Sun & Moon Content -->
+    <section id="s5" class="reveal">
+        <div style="text-align:center; max-width:600px;">
+            <h2 style="font-family:'Playfair Display'; color:var(--gold); font-size:2.2rem;">"Tú eres mi Sol, yo soy tu Luna"</h2>
+            <div class="divider"></div>
+            <p><span class="lang-tag">HI</span> Tune kaha tha—"Tu mera Moon hai." Us ek baat ne sab kuch badal diya.</p>
+            <p style="margin-top:15px;"><span class="lang-tag">ES</span> <em>El sol necesita a la luna, y la luna siempre vuelve.</em> No importa la distancia.</p>
+            <p style="margin-top:15px;"><span class="lang-tag">EN</span> I shine because you make me glow, Ruby. 🌟</p>
+        </div>
+    </section>
+
+    <!-- S6: Secret Letter -->
+    <section id="s6" class="reveal">
+        <h2 style="font-family:'Dancing Script'; margin-bottom:30px; font-size:2rem;">A Secret Letter... 📩</h2>
+        <div class="envelope" onclick="openLetter()">
+            <div class="seal">🌙</div>
+        </div>
+        <p style="margin-top:20px; font-size:0.7rem; letter-spacing:2px;">CLICK TO UNSEAL</p>
+    </section>
+
+    <!-- Final Section -->
+    <section id="s7" style="text-align:center;">
+        <h1 class="glitch-title" style="font-size:3.5rem;">Happy Birthday, Ruby 🌹</h1>
+        <p style="font-family:'Dancing Script'; font-size:1.8rem; margin:20px 0;">Always orbiting, always near. 🌙</p>
+        <div style="background:var(--glass); padding:15px 40px; border-radius:50px; border:1px solid var(--gold);">
+            Con mucho amor — <b>Yatish</b> 💛
+        </div>
+    </section>
+
+    <!-- Letter View Overlay -->
+    <div class="letter-modal" id="letterModal" onclick="closeLetter()">
+        <div class="parchment">
+            <h3>Querida Ruby,</h3><br>
+            <p>They say the moon has no light of its own, it only reflects the sun. That’s how I feel when I talk to you.</p><br>
+            <p>Mexico to India may be thousands of miles, but your heart makes the distance feel like nothing. Thank you for the laughs, the lessons, and for being YOU.</p><br>
+            <p>Happy Birthday, my favorite magic. 🎂</p><br>
+            <p>Always yours,<br><b>Yatish 🌙</b></p>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. STARS CANVAS ---
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        function initStars() {
+            stars = [];
+            for(let i=0; i<150; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5, o:Math.random(), s:Math.random()*0.02});
+        }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            stars.forEach(s => {
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(255,255,255,${Math.abs(Math.sin(s.o))})`;
+                ctx.fill(); s.o += s.s;
+            });
+            requestAnimationFrame(draw);
+        }
+        window.onresize = () => { resize(); initStars(); };
+        resize(); initStars(); draw();
+
+        // --- 2. MUSIC PLAYER ---
+        const tracks = [
+            { name: "Moon Theme 🌙", url: "https://www.bensound.com/bensound-music/bensound-love.mp3" },
+            { name: "Birthday Waltz 🎂", url: "https://cdn.pixabay.com/audio/2022/10/05/audio_275e533c37.mp3" },
+            { name: "Calm Night ✨", url: "https://cdn.pixabay.com/audio/2022/02/07/audio_d0c6ff1101.mp3" }
+        ];
+        let currentTrack = 0;
+        let audio = new Audio(tracks[0].url);
+        let playing = false;
+
+        function togglePlay() {
+            const btn = document.getElementById('playBtn');
+            if(!playing) { audio.play(); btn.innerText = '⏸️'; } 
+            else { audio.pause(); btn.innerText = '▶️'; }
+            playing = !playing;
+        }
+
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            audio.src = tracks[currentTrack].url;
+            document.getElementById('trackName').innerText = tracks[currentTrack].name;
+            if(playing) audio.play();
+        }
+
+        // --- 3. INTERACTIVE ACTIONS ---
+        function blowCandle() {
+            document.getElementById('flame').style.display = 'none';
+            document.getElementById('wishHint').innerText = "The Universe is listening! ✨";
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.7 }, colors: ['#f5c842', '#ff6b9d', '#7fffd4'] });
+        }
+
+        function pop(el, msg) {
+            el.innerText = '💥';
+            confetti({ particleCount: 30, origin: { x: el.offsetLeft/window.innerWidth, y: el.offsetTop/window.innerHeight } });
+            setTimeout(() => {
+                el.innerText = msg;
+                el.style.fontSize = '0.9rem';
+                el.style.background = 'var(--glass)';
+                el.style.padding = '10px';
+                el.style.borderRadius = '10px';
+                el.style.animation = 'none';
+            }, 300);
+        }
+
+        function openLetter() {
+            const modal = document.getElementById('letterModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('open'), 10);
+        }
+        function closeLetter() {
+            const modal = document.getElementById('letterModal');
+            modal.classList.remove('open');
+            setTimeout(() => modal.style.display = 'none', 500);
+        }
+
+        // --- 4. SCROLL REVEAL ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if(entry.target.id === 's2') document.getElementById('xpFill').style.width = '100%';
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.reveal').forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
