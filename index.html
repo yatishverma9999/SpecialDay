@@ -4,321 +4,358 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Cumpleaños, Ruby 🌙</title>
-    
-    <!-- Professional Fonts & Libraries -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Quicksand:wght@300;500;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --deep: #0a0015;
             --navy: #0d0a2e;
+            --purple: #1a0a3e;
             --gold: #f5c842;
             --rose: #ff6b9d;
             --moon: #fffbe6;
+            --sun: #ffb347;
+            --soft: #e8d5ff;
             --teal: #7fffd4;
-            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--deep); 
-            color: var(--moon); 
-            font-family: 'Quicksand', sans-serif; 
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--deep);
+            color: var(--moon);
+            font-family: 'Quicksand', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            cursor: default;
         }
 
-        /* Fixed Background Stars */
-        #stars-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-
-        /* Music Player Aesthetic */
-        .music-player {
-            position: fixed; top: 20px; right: 20px; z-index: 1000;
-            background: var(--glass); backdrop-filter: blur(10px);
-            padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; gap: 15px; transition: 0.3s;
+        /* ===== STARS CANVAS ===== */
+        #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
-        .music-player:hover { border-color: var(--gold); }
-        .control-btn { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 1.2rem; }
-        .track-info { font-size: 0.7rem; font-weight: bold; }
 
-        /* Cinematic Sections */
+        /* ===== SECTIONS ===== */
         section {
-            min-height: 100vh; width: 100%; position: relative;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 60px 20px;
+            opacity: 0; /* JS will change this to 1 */
+            transform: translateY(40px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
         }
 
-        /* Section Transitions */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1s ease; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        /* --- S1: Intro --- */
+        /* ===== SECTION 1 — INTRO ===== */
+        #s1 { background: radial-gradient(ellipse at center, #1a0a3e 0%, #0a0015 70%); }
+        
+        .moon-wrap {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-18px); }
+        }
+
         .moon-circle {
-            width: 150px; height: 150px; border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #fffbe6, #f5c842 60%);
-            box-shadow: 0 0 60px rgba(245,200,66,0.4); margin-bottom: 30px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fffbe6, #f5c842 60%, #c9982a);
+            box-shadow: 0 0 60px 20px rgba(245,200,66,0.35), 0 0 120px 40px rgba(245,200,66,0.12);
         }
+
+        .moon-face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 90px;
+            line-height: 1;
+        }
+
         .glitch-title {
-            font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5rem);
-            text-align: center; background: linear-gradient(135deg, var(--gold), var(--rose), var(--teal));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            text-align: center;
+            background: linear-gradient(135deg, var(--gold), var(--rose), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            animation: shimmer 3s ease infinite;
+            background-size: 200% auto;
         }
 
-        /* --- S2: Duo Card --- */
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        .subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            color: var(--soft);
+            text-align: center;
+            margin-top: 14px;
+            opacity: 0.85;
+        }
+
+        .scroll-hint {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* ===== SECTION 2 — DUOLINGO STYLE ===== */
         .duo-card {
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px; padding: 40px; max-width: 550px; width: 100%;
-            backdrop-filter: blur(15px);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 40px 36px;
+            max-width: 580px;
+            width: 100%;
+            backdrop-filter: blur(12px);
         }
-        .xp-bar { height: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 20px; overflow: hidden; }
-        .xp-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--teal), var(--rose)); transition: 2s ease; }
 
-        /* --- S3: Interactive Cake --- */
-        .cake-container { position: relative; width: 200px; height: 200px; cursor: pointer; }
-        .cake-body { 
-            width: 180px; height: 100px; background: #4d2d18; border-radius: 15px 15px 0 0; 
-            position: absolute; bottom: 0; left: 10px; border-top: 8px solid var(--rose);
+        .duo-header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+        .duo-owl { font-size: 2.6rem; animation: wiggle 2s ease-in-out infinite; }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-8deg); }
+            75% { transform: rotate(8deg); }
         }
-        .candle { 
-            width: 8px; height: 35px; background: #fff; position: absolute; 
-            top: -42px; left: 50%; transform: translateX(-50%); border-radius: 4px; 
-        }
-        .flame { 
-            width: 12px; height: 20px; background: var(--gold); border-radius: 50%; 
-            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-            box-shadow: 0 0 15px var(--gold); animation: flicker 0.1s infinite alternate;
-        }
-        @keyframes flicker { from { opacity: 0.8; } to { opacity: 1; } }
 
-        /* --- S4: Balloons --- */
-        .balloon-container { position: relative; width: 100%; height: 300px; }
-        .balloon { 
-            position: absolute; font-size: 3rem; cursor: pointer; 
-            animation: float-slow 4s ease-in-out infinite alternate;
+        .duo-label {
+            font-weight: 700; font-size: 0.75rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--teal);
+            background: rgba(127,255,212,0.1); padding: 4px 12px; border-radius: 20px;
         }
-        @keyframes float-slow { from { transform: translateY(0); } to { transform: translateY(-20px); } }
 
-        /* --- S5: Secret Letter --- */
-        .envelope {
-            width: 280px; height: 180px; background: #1a0a2e; border: 1px solid var(--gold);
-            border-radius: 10px; position: relative; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5); transition: 0.5s;
+        .lesson-items { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .lesson-item {
+            display: flex; gap: 12px; font-size: 1.05rem; opacity: 0;
+            transform: translateX(-20px); transition: 0.5s ease;
         }
-        .envelope:hover { transform: translateY(-10px) rotate(-2deg); }
-        .seal { width: 50px; height: 50px; background: #8b0000; border-radius: 50%; border: 2px solid var(--gold); }
+        .lesson-item.show { opacity: 1; transform: translateX(0); }
 
-        .letter-modal {
-            position: fixed; inset: 0; background: rgba(10, 0, 21, 0.95);
-            display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px;
-        }
-        .parchment {
-            background: #fffbe6; color: #2e2e2e; padding: 40px; max-width: 500px;
-            font-family: 'Dancing Script', cursive; font-size: 1.5rem; line-height: 1.6;
-            border-radius: 5px; box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
-            position: relative; transform: scale(0.8); opacity: 0; transition: 0.5s;
-        }
-        .letter-modal.open .parchment { transform: scale(1); opacity: 1; }
+        .xp-bar { margin-top: 28px; background: rgba(255,255,255,0.08); border-radius: 99px; height: 10px; overflow: hidden; }
+        .xp-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--rose)); width: 0%; transition: 2s ease 0.5s; }
+        .xp-fill.loaded { width: 100%; }
 
-        .divider { width: 60px; height: 2px; background: var(--gold); margin: 20px auto; }
-        .lang-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 5px; background: rgba(255,255,255,0.1); margin-right: 5px; color: var(--gold); }
+        /* ===== SECTION 3 — MOON SUN ===== */
+        .cosmos-wrap { position: relative; width: 300px; height: 300px; margin-bottom: 40px; }
+        .orbit { position: absolute; inset: 0; border: 1px dashed rgba(255,255,255,0.1); border-radius: 50%; animation: spin 12s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .sun-body { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 70px; }
+        .moon-body { position: absolute; top: 50%; left: 50%; font-size: 40px; animation: orbit-moon 12s linear infinite; }
+        @keyframes orbit-moon {
+            from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+
+        /* ===== SECTION 4 — MESSAGES ===== */
+        .msgs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; width: 100%; max-width: 800px; }
+        .msg-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; border-top: 3px solid var(--rose); }
+
+        /* ===== FIREFLIES ===== */
+        .firefly {
+            position: fixed; border-radius: 50%; opacity: 0;
+            animation: fly linear infinite; z-index: 0; pointer-events: none;
+        }
+        @keyframes fly {
+            0% { opacity: 0; transform: translateY(0); }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-100vh); }
+        }
+
+        #progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); z-index: 1000; }
+        
+        .divider { width: 50px; height: 2px; background: var(--gold); margin: 20px auto; }
+        .lang-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; margin-right: 5px; background: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
 
+    <div id="progress"></div>
     <canvas id="stars-canvas"></canvas>
 
-    <!-- Music Player -->
-    <div class="music-player">
-        <button class="control-btn" onclick="togglePlay()" id="playBtn">▶️</button>
-        <button class="control-btn" onclick="nextTrack()">⏭️</button>
-        <div class="track-info" id="trackName">Moon Theme 🌙</div>
-    </div>
-
-    <!-- S1: Intro -->
+    <!-- SECTION 1 -->
     <section id="s1">
-        <div class="moon-circle"></div>
-        <h1 class="glitch-title">Feliz Cumpleaños,<br>Ruby ✨</h1>
-        <p style="font-family:'Dancing Script'; font-size:1.6rem; margin-top:15px; color:var(--soft);">A little surprise… from across the oceans 🌊</p>
-        <p style="margin-top:20px; font-size:0.9rem; opacity:0.6; text-align:center;">
-            Ek choti si duniya bani thi Duolingo pe…<br>aur dekho, aaj yahan tak aa gaye 🦉💫
-        </p>
+        <div class="moon-wrap">
+            <div class="moon-circle"></div>
+            <div class="moon-face">🌙</div>
+        </div>
+        <h1 class="glitch-title">Feliz Cumpleaños<br>Ruby ✨</h1>
+        <p class="subtitle">A little surprise… from across the oceans 🌊</p>
+        <p class="scroll-hint">↓ scroll to begin ↓</p>
     </section>
 
-    <!-- S2: Duolingo Lesson (Upgraded Card) -->
-    <section id="s2" class="reveal">
+    <!-- SECTION 2 -->
+    <section id="s2">
         <div class="duo-card">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
-                <span style="font-size:2rem;">🦉</span>
-                <span style="font-weight:bold; letter-spacing:2px; color:var(--teal); font-size:0.8rem;">TODAY'S LESSON</span>
+            <div class="duo-header">
+                <span class="duo-owl">🦉</span>
+                <span class="duo-label">Today's Lesson</span>
             </div>
-            <h2 style="font-family:'Playfair Display'; color:var(--gold); margin-bottom:20px;">"Por qué Ruby es increíble" 💖</h2>
-            <div style="display:flex; flex-direction:column; gap:15px;">
-                <p>🌟 Magic is real because she's real.</p>
-                <p>🦋 Deep as the ocean, bright as the sun.</p>
-                <p>🌙 She called him her Moon. <span class="lang-tag">ES</span> <em>El universo lo supo.</em></p>
-                <p>✨ Mexico to India — Same heartbeat.</p>
-            </div>
+            <h2 style="color:var(--gold); margin-bottom:15px;">Why Ruby is Magic 💖</h2>
+            <ul class="lesson-items">
+                <li class="lesson-item"><span>🌟 She turned a language app into a beautiful story.</span></li>
+                <li class="lesson-item"><span>🦋 Her heart is deeper than the ocean.</span></li>
+                <li class="lesson-item"><span>🌙 She is the Sun to my Moon.</span></li>
+                <li class="lesson-item"><span>✨ Distance is just a number for us.</span></li>
+            </ul>
             <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
-            <p style="font-size:0.7rem; color:var(--teal); margin-top:10px; text-align:right;">+100 XP — Appreciation Streak 🔥</p>
+            <p style="font-size:0.8rem; margin-top:10px; color:var(--teal);">+100 XP — Ruby Streak Active! 🔥</p>
         </div>
     </section>
 
-    <!-- S3: Interactive Cake Build -->
-    <section id="s3" class="reveal">
-        <h2 style="font-family:'Dancing Script'; font-size:2.5rem; color:var(--gold); margin-bottom:40px;">Make a wish, Ruby...</h2>
-        <div class="cake-container" onclick="blowCandle()">
-            <div class="cake-body"></div>
-            <div class="candle">
-                <div class="flame" id="flame"></div>
+    <!-- SECTION 3 -->
+    <section id="s3">
+        <div class="cosmos-wrap">
+            <div class="orbit"></div>
+            <div class="sun-body">☀️</div>
+            <div class="moon-body">🌙</div>
+        </div>
+        <div style="text-align:center; max-width:500px;">
+            <h2 style="font-family:'Playfair Display'; color:var(--gold);">"Tú eres mi Sol, yo soy tu Luna"</h2>
+            <div class="divider"></div>
+            <p><span class="lang-tag">HI</span> Tune kaha tha—"Tu mera Moon hai." Us din se sab badal gaya.</p>
+            <p style="margin-top:10px;"><span class="lang-tag">ES</span> El sol necesita a la luna, y la luna siempre vuelve.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="s4">
+        <h2 style="font-family:'Playfair Display'; margin-bottom:30px;">Kuch Dil Ki Baatein 💌</h2>
+        <div class="msgs-grid">
+            <div class="msg-card">
+                <h3>🌹 Favorite Memory</h3>
+                <p>That moment when we realized timezones don't matter when hearts talk.</p>
+            </div>
+            <div class="msg-card" style="border-color:var(--gold)">
+                <h3>✨ What I Love</h3>
+                <p>Tumhari simplicity aur wo tarika jis se tum mujhe samajhti ho.</p>
             </div>
         </div>
-        <p id="wishHint" style="margin-top:30px; font-weight:bold; color:var(--rose);">Tap the candle to blow! 🕯️</p>
     </section>
 
-    <!-- S4: Balloon Pop -->
-    <section id="s4" class="reveal">
-        <h2 style="font-family:'Playfair Display'; margin-bottom:40px;">Pop the Balloons! 🎈</h2>
-        <div class="balloon-container">
-            <div class="balloon" style="left:15%; top:10%;" onclick="pop(this, 'You are magic 🌟')">🎈</div>
-            <div class="balloon" style="right:15%; top:20%; animation-delay: 1s;" onclick="pop(this, 'Eres mi Sol ☀️')">🎈</div>
-            <div class="balloon" style="left:20%; bottom:10%; animation-delay: 0.5s;" onclick="pop(this, 'Favorite Human 🦉')">🎈</div>
-            <div class="balloon" style="right:25%; bottom:20%; animation-delay: 1.5s;" onclick="pop(this, 'April 8 🌸')">🎈</div>
-        </div>
-    </section>
-
-    <!-- S5: Sun & Moon Content -->
-    <section id="s5" class="reveal">
-        <div style="text-align:center; max-width:600px;">
-            <h2 style="font-family:'Playfair Display'; color:var(--gold); font-size:2.2rem;">"Tú eres mi Sol, yo soy tu Luna"</h2>
-            <div class="divider"></div>
-            <p><span class="lang-tag">HI</span> Tune kaha tha—"Tu mera Moon hai." Us ek baat ne sab kuch badal diya.</p>
-            <p style="margin-top:15px;"><span class="lang-tag">ES</span> <em>El sol necesita a la luna, y la luna siempre vuelve.</em> No importa la distancia.</p>
-            <p style="margin-top:15px;"><span class="lang-tag">EN</span> I shine because you make me glow, Ruby. 🌟</p>
-        </div>
-    </section>
-
-    <!-- S6: Secret Letter -->
-    <section id="s6" class="reveal">
-        <h2 style="font-family:'Dancing Script'; margin-bottom:30px; font-size:2rem;">A Secret Letter... 📩</h2>
-        <div class="envelope" onclick="openLetter()">
-            <div class="seal">🌙</div>
-        </div>
-        <p style="margin-top:20px; font-size:0.7rem; letter-spacing:2px;">CLICK TO UNSEAL</p>
-    </section>
-
-    <!-- Final Section -->
-    <section id="s7" style="text-align:center;">
-        <h1 class="glitch-title" style="font-size:3.5rem;">Happy Birthday, Ruby 🌹</h1>
-        <p style="font-family:'Dancing Script'; font-size:1.8rem; margin:20px 0;">Always orbiting, always near. 🌙</p>
-        <div style="background:var(--glass); padding:15px 40px; border-radius:50px; border:1px solid var(--gold);">
+    <!-- SECTION 6 -->
+    <section id="s6" style="text-align:center;">
+        <h1 class="glitch-title" style="font-size:3rem;">Happy Birthday, Ruby 🌹</h1>
+        <p style="font-family:'Dancing Script'; font-size:1.5rem; margin:20px 0;">Always orbiting, always near. 🌙</p>
+        <div style="background:rgba(255,255,255,0.1); padding:15px 30px; border-radius:50px; display:inline-block;">
             Con mucho amor — <b>Yatish</b> 💛
         </div>
     </section>
 
-    <!-- Letter View Overlay -->
-    <div class="letter-modal" id="letterModal" onclick="closeLetter()">
-        <div class="parchment">
-            <h3>Querida Ruby,</h3><br>
-            <p>They say the moon has no light of its own, it only reflects the sun. That’s how I feel when I talk to you.</p><br>
-            <p>Mexico to India may be thousands of miles, but your heart makes the distance feel like nothing. Thank you for the laughs, the lessons, and for being YOU.</p><br>
-            <p>Happy Birthday, my favorite magic. 🎂</p><br>
-            <p>Always yours,<br><b>Yatish 🌙</b></p>
-        </div>
-    </div>
-
     <script>
-        // --- 1. STARS CANVAS ---
+        // Fix 1: Fireflies with proper backticks
+        for (let i = 0; i < 15; i++) {
+            const f = document.createElement('div');
+            f.className = 'firefly';
+            f.style.left = Math.random() * 100 + 'vw';
+            f.style.bottom = '0vh';
+            f.style.width = (Math.random() * 5 + 2) + 'px';
+            f.style.height = f.style.width;
+            f.style.background = ['#f5c842','#ff6b9d','#7fffd4'][Math.floor(Math.random()*3)];
+            f.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            f.style.animationDelay = (Math.random() * 5) + 's';
+            document.body.appendChild(f);
+        }
+
+        // Fix 2: Stars Canvas with proper template literals
         const canvas = document.getElementById('stars-canvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        function initStars() {
-            stars = [];
-            for(let i=0; i<150; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5, o:Math.random(), s:Math.random()*0.02});
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+
+        function init() {
+            stars = [];
+            for(let i=0; i<200; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5,
+                    o: Math.random(),
+                    s: Math.random() * 0.02
+                });
+            }
+        }
+
         function draw() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
             stars.forEach(s => {
-                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
                 ctx.fillStyle = `rgba(255,255,255,${Math.abs(Math.sin(s.o))})`;
-                ctx.fill(); s.o += s.s;
+                ctx.fill();
+                s.o += s.s;
             });
             requestAnimationFrame(draw);
         }
-        window.onresize = () => { resize(); initStars(); };
-        resize(); initStars(); draw();
 
-        // --- 2. MUSIC PLAYER ---
-        const tracks = [
-            { name: "Moon Theme 🌙", url: "https://www.bensound.com/bensound-music/bensound-love.mp3" },
-            { name: "Birthday Waltz 🎂", url: "https://cdn.pixabay.com/audio/2022/10/05/audio_275e533c37.mp3" },
-            { name: "Calm Night ✨", url: "https://cdn.pixabay.com/audio/2022/02/07/audio_d0c6ff1101.mp3" }
-        ];
-        let currentTrack = 0;
-        let audio = new Audio(tracks[0].url);
-        let playing = false;
+        window.addEventListener('resize', () => { resize(); init(); });
+        resize(); init(); draw();
 
-        function togglePlay() {
-            const btn = document.getElementById('playBtn');
-            if(!playing) { audio.play(); btn.innerText = '⏸️'; } 
-            else { audio.pause(); btn.innerText = '▶️'; }
-            playing = !playing;
-        }
-
-        function nextTrack() {
-            currentTrack = (currentTrack + 1) % tracks.length;
-            audio.src = tracks[currentTrack].url;
-            document.getElementById('trackName').innerText = tracks[currentTrack].name;
-            if(playing) audio.play();
-        }
-
-        // --- 3. INTERACTIVE ACTIONS ---
-        function blowCandle() {
-            document.getElementById('flame').style.display = 'none';
-            document.getElementById('wishHint').innerText = "The Universe is listening! ✨";
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.7 }, colors: ['#f5c842', '#ff6b9d', '#7fffd4'] });
-        }
-
-        function pop(el, msg) {
-            el.innerText = '💥';
-            confetti({ particleCount: 30, origin: { x: el.offsetLeft/window.innerWidth, y: el.offsetTop/window.innerHeight } });
-            setTimeout(() => {
-                el.innerText = msg;
-                el.style.fontSize = '0.9rem';
-                el.style.background = 'var(--glass)';
-                el.style.padding = '10px';
-                el.style.borderRadius = '10px';
-                el.style.animation = 'none';
-            }, 300);
-        }
-
-        function openLetter() {
-            const modal = document.getElementById('letterModal');
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('open'), 10);
-        }
-        function closeLetter() {
-            const modal = document.getElementById('letterModal');
-            modal.classList.remove('open');
-            setTimeout(() => modal.style.display = 'none', 500);
-        }
-
-        // --- 4. SCROLL REVEAL ---
+        // Fix 3: Intersection Observer to make sections appear
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    if(entry.target.id === 's2') document.getElementById('xpFill').style.width = '100%';
+                    if(entry.target.id === 's2') {
+                        document.querySelectorAll('.lesson-item').forEach((li, i) => {
+                            setTimeout(() => li.classList.add('show'), i * 300);
+                        });
+                        setTimeout(() => document.getElementById('xpFill').classList.add('loaded'), 500);
+                    }
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.2 });
 
-        document.querySelectorAll('.reveal').forEach(s => observer.observe(s));
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+        // Scroll progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress").style.width = scrolled + "%";
+        });
     </script>
 </body>
 </html>
