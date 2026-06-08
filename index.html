@@ -1,361 +1,847 @@
+Jo text lkikha h sane mujhe reply kri..
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Cumpleaños, Ruby 🌙</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --deep: #0a0015;
-            --navy: #0d0a2e;
-            --purple: #1a0a3e;
-            --gold: #f5c842;
-            --rose: #ff6b9d;
-            --moon: #fffbe6;
-            --sun: #ffb347;
-            --soft: #e8d5ff;
-            --teal: #7fffd4;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños, Ruby 🌙</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep: #0a0015;
+    --navy: #0d0a2e;
+    --purple: #1a0a3e;
+    --gold: #f5c842;
+    --rose: #ff6b9d;
+    --moon: #fffbe6;
+    --sun: #ffb347;
+    --soft: #e8d5ff;
+    --teal: #7fffd4;
+  }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background: var(--deep);
-            color: var(--moon);
-            font-family: 'Quicksand', sans-serif;
-            overflow-x: hidden;
-            cursor: default;
-        }
+  html { scroll-behavior: smooth; }
 
-        /* ===== STARS CANVAS ===== */
-        #stars-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+  body {
+    background: var(--deep);
+    color: var(--moon);
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
 
-        /* ===== SECTIONS ===== */
-        section {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            opacity: 0; /* JS will change this to 1 */
-            transform: translateY(40px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
+  /* ===== STARS CANVAS ===== */
+  #stars-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+  /* ===== SECTIONS ===== */
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
 
-        /* ===== SECTION 1 — INTRO ===== */
-        #s1 { background: radial-gradient(ellipse at center, #1a0a3e 0%, #0a0015 70%); }
-        
-        .moon-wrap {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px;
-            animation: float 4s ease-in-out infinite;
-        }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-18px); }
-        }
+  /* ===== SECTION 1 — INTRO ===== */
+  #s1 {
+    background: radial-gradient(ellipse at center, #1a0a3e 0%, #0a0015 70%);
+  }
 
-        .moon-circle {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #fffbe6, #f5c842 60%, #c9982a);
-            box-shadow: 0 0 60px 20px rgba(245,200,66,0.35), 0 0 120px 40px rgba(245,200,66,0.12);
-        }
+  .moon-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 30px;
+    animation: float 4s ease-in-out infinite;
+  }
 
-        .moon-face {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            font-size: 90px;
-            line-height: 1;
-        }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
 
-        .glitch-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 8vw, 5.5rem);
-            text-align: center;
-            background: linear-gradient(135deg, var(--gold), var(--rose), var(--teal));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            animation: shimmer 3s ease infinite;
-            background-size: 200% auto;
-        }
+  .moon-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fffbe6, #f5c842 60%, #c9982a);
+    box-shadow: 0 0 60px 20px rgba(245,200,66,0.35), 0 0 120px 40px rgba(245,200,66,0.12);
+  }
 
-        @keyframes shimmer {
-            0% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-            100% { background-position: 0% center; }
-        }
+  .moon-face {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 90px;
+    line-height: 1;
+  }
 
-        .subtitle {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(1.1rem, 3vw, 1.6rem);
-            color: var(--soft);
-            text-align: center;
-            margin-top: 14px;
-            opacity: 0.85;
-        }
+  .glitch-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    text-align: center;
+    background: linear-gradient(135deg, var(--gold), var(--rose), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    animation: shimmer 3s ease infinite;
+    background-size: 200% auto;
+  }
 
-        .scroll-hint {
-            margin-top: 50px;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.4);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: bounce 2s infinite;
-        }
+  @keyframes shimmer {
+    0% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+    100% { background-position: 0% center; }
+  }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(8px); }
-        }
+  .subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    color: var(--soft);
+    text-align: center;
+    margin-top: 14px;
+    opacity: 0.85;
+  }
 
-        /* ===== SECTION 2 — DUOLINGO STYLE ===== */
-        .duo-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 40px 36px;
-            max-width: 580px;
-            width: 100%;
-            backdrop-filter: blur(12px);
-        }
+  .scroll-hint {
+    margin-top: 50px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
 
-        .duo-header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
-        .duo-owl { font-size: 2.6rem; animation: wiggle 2s ease-in-out infinite; }
-        
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-8deg); }
-            75% { transform: rotate(8deg); }
-        }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
 
-        .duo-label {
-            font-weight: 700; font-size: 0.75rem; letter-spacing: 3px;
-            text-transform: uppercase; color: var(--teal);
-            background: rgba(127,255,212,0.1); padding: 4px 12px; border-radius: 20px;
-        }
+  /* ===== SECTION 2 — DUOLINGO STYLE ===== */
+  #s2 {
+    background: radial-gradient(ellipse at 30% 60%, #0f1a3e, #0a0015 75%);
+  }
 
-        .lesson-items { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-        .lesson-item {
-            display: flex; gap: 12px; font-size: 1.05rem; opacity: 0;
-            transform: translateX(-20px); transition: 0.5s ease;
-        }
-        .lesson-item.show { opacity: 1; transform: translateX(0); }
+  .duo-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 40px 36px;
+    max-width: 580px;
+    width: 100%;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
 
-        .xp-bar { margin-top: 28px; background: rgba(255,255,255,0.08); border-radius: 99px; height: 10px; overflow: hidden; }
-        .xp-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--rose)); width: 0%; transition: 2s ease 0.5s; }
-        .xp-fill.loaded { width: 100%; }
+  .duo-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
 
-        /* ===== SECTION 3 — MOON SUN ===== */
-        .cosmos-wrap { position: relative; width: 300px; height: 300px; margin-bottom: 40px; }
-        .orbit { position: absolute; inset: 0; border: 1px dashed rgba(255,255,255,0.1); border-radius: 50%; animation: spin 12s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .sun-body { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 70px; }
-        .moon-body { position: absolute; top: 50%; left: 50%; font-size: 40px; animation: orbit-moon 12s linear infinite; }
-        @keyframes orbit-moon {
-            from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
-        }
+  .duo-owl {
+    font-size: 2.6rem;
+    animation: wiggle 2s ease-in-out infinite;
+  }
 
-        /* ===== SECTION 4 — MESSAGES ===== */
-        .msgs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; width: 100%; max-width: 800px; }
-        .msg-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; border-top: 3px solid var(--rose); }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+  }
 
-        /* ===== FIREFLIES ===== */
-        .firefly {
-            position: fixed; border-radius: 50%; opacity: 0;
-            animation: fly linear infinite; z-index: 0; pointer-events: none;
-        }
-        @keyframes fly {
-            0% { opacity: 0; transform: translateY(0); }
-            50% { opacity: 0.8; }
-            100% { opacity: 0; transform: translateY(-100vh); }
-        }
+  .duo-label {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: rgba(127,255,212,0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(127,255,212,0.25);
+  }
 
-        #progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); z-index: 1000; }
-        
-        .divider { width: 50px; height: 2px; background: var(--gold); margin: 20px auto; }
-        .lang-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; margin-right: 5px; background: rgba(255,255,255,0.1); }
-    </style>
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    color: var(--gold);
+    margin-bottom: 22px;
+    font-style: italic;
+  }
+
+  .lesson-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .lesson-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.88);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .lesson-item.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .check {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .xp-bar {
+    margin-top: 28px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 99px;
+    height: 10px;
+    overflow: hidden;
+  }
+
+  .xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--rose));
+    border-radius: 99px;
+    width: 0%;
+    transition: width 2s ease 0.5s;
+  }
+
+  .xp-fill.loaded { width: 100%; }
+
+  .xp-label {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--teal);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* ===== SECTION 3 — MOON SUN ===== */
+  #s3 {
+    background: radial-gradient(ellipse at 70% 40%, #1e0a2e, #0a0015 70%);
+    padding: 80px 20px;
+  }
+
+  .cosmos-wrap {
+    position: relative;
+    width: min(340px, 90vw);
+    height: min(340px, 90vw);
+    margin: 0 auto 40px;
+  }
+
+  .orbit {
+    position: absolute;
+    inset: 0;
+    border: 1px dashed rgba(255,255,255,0.12);
+    border-radius: 50%;
+    animation: spin 12s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .sun-body {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 72px;
+    animation: pulse-sun 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255,180,71,0.7));
+    line-height: 1;
+  }
+
+  @keyframes pulse-sun {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(255,180,71,0.7)); transform: translate(-50%,-50%) scale(1); }
+    50% { filter: drop-shadow(0 0 40px rgba(255,180,71,1)); transform: translate(-50%,-50%) scale(1.08); }
+  }
+
+  .moon-body {
+    position: absolute;
+    top: 50%; left: 50%;
+    font-size: 40px;
+    filter: drop-shadow(0 0 12px rgba(245,200,66,0.8));
+    line-height: 1;
+    animation: orbit-moon 12s linear infinite;
+    transform-origin: 0 0;
+  }
+
+  @keyframes orbit-moon {
+    from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+  }
+
+  .cosmos-text {
+    max-width: 520px;
+    text-align: center;
+  }
+
+  .cosmos-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .cosmos-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 12px;
+  }
+
+  .lang-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .es { background: rgba(255,107,157,0.2); color: var(--rose); border: 1px solid rgba(255,107,157,0.3); }
+  .hi { background: rgba(245,200,66,0.2); color: var(--gold); border: 1px solid rgba(245,200,66,0.3); }
+  .en { background: rgba(127,255,212,0.15); color: var(--teal); border: 1px solid rgba(127,255,212,0.25); }
+
+  /* ===== SECTION 4 — SPECIAL MESSAGES ===== */
+  #s4 {
+    background: radial-gradient(ellipse at 50% 80%, #0a1a2e, #0a0015 65%);
+    padding: 80px 20px;
+  }
+
+  .msgs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 820px;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .msg-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .msg-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .msg-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .card-rose::before { background: linear-gradient(90deg, var(--rose), transparent); }
+  .card-gold::before { background: linear-gradient(90deg, var(--gold), transparent); }
+  .card-teal::before { background: linear-gradient(90deg, var(--teal), transparent); }
+  .card-soft::before { background: linear-gradient(90deg, var(--soft), transparent); }
+
+  .msg-emoji { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+  .msg-card h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--gold);
+  }
+
+  .msg-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .add-msg-note {
+    margin-top: 28px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* ===== SECTION 5 — GIF GALLERY ===== */
+  #s5 {
+    background: radial-gradient(ellipse at 20% 50%, #150a2e, #0a0015 70%);
+    padding: 80px 20px;
+  }
+
+  .gif-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 30px;
+    max-width: 760px;
+  }
+
+  .gif-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .gif-wrap:hover { transform: scale(1.04) rotate(1deg); }
+
+  .gif-wrap img {
+    display: block;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  /* ===== SECTION 6 — FINAL ===== */
+  #s6 {
+    background: radial-gradient(ellipse at center, #1a0a2e, #0a0015 65%);
+    padding: 100px 20px;
+    text-align: center;
+  }
+
+  .final-moon {
+    font-size: 90px;
+    animation: float 4s ease-in-out infinite;
+    display: block;
+    margin: 0 auto 30px;
+    filter: drop-shadow(0 0 30px rgba(245,200,66,0.6));
+  }
+
+  .final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--rose) 50%, var(--soft) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .final-poem {
+    max-width: 480px;
+    margin: 0 auto 40px;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    color: rgba(255,255,255,0.85);
+    line-height: 2;
+  }
+
+  .final-poem em {
+    color: var(--rose);
+    font-style: normal;
+  }
+
+  .from-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 99px;
+    padding: 14px 32px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--moon);
+    margin-bottom: 30px;
+  }
+
+  .from-tag span {
+    color: var(--gold);
+  }
+
+  .hearts-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    font-size: 1.8rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+
+  /* ===== SECTION HEADINGS ===== */
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    text-align: center;
+    margin-bottom: 6px;
+    color: var(--moon);
+  }
+
+  .section-sub {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.15rem;
+    color: var(--rose);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 18px auto;
+    border-radius: 99px;
+  }
+
+  /* ===== FIREFLIES ===== */
+  .firefly {
+    position: fixed;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    animation: fly linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  @keyframes fly {
+    0% { opacity: 0; transform: translateY(0) scale(0.5); }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+  }
+
+  /* ===== SCROLL PROGRESS ===== */
+  #progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--rose), var(--gold), var(--teal));
+    z-index: 100;
+    transition: width 0.2s ease;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .duo-card { padding: 28px 20px; }
+    .moon-wrap { width: 130px; height: 130px; }
+    .moon-circle { width: 130px; height: 130px; }
+    .moon-face { font-size: 66px; }
+    .cosmos-wrap { width: 260px; height: 260px; }
+  }
+</style>
 </head>
 <body>
 
-    <div id="progress"></div>
-    <canvas id="stars-canvas"></canvas>
+<div id="progress"></div>
+<canvas id="stars-canvas"></canvas>
 
-    <!-- SECTION 1 -->
-    <section id="s1">
-        <div class="moon-wrap">
-            <div class="moon-circle"></div>
-            <div class="moon-face">🌙</div>
-        </div>
-        <h1 class="glitch-title">Feliz Cumpleaños<br>Ruby ✨</h1>
-        <p class="subtitle">A little surprise… from across the oceans 🌊</p>
-        <p class="scroll-hint">↓ scroll to begin ↓</p>
-    </section>
+<!-- FIREFLIES -->
+<script>
+  for (let i = 0; i < 14; i++) {
+    const f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.cssText = `left:${Math.random()*100}vw; bottom:${Math.random()*60}vh; animation-duration:${4+Math.random()*6}s; animation-delay:${Math.random()*6}s; width:${3+Math.random()*4}px; height:${3+Math.random()*4}px; background:${['#f5c842','#ff6b9d','#7fffd4','#e8d5ff'][Math.floor(Math.random()*4)]};`;
+    document.body.appendChild(f);
+  }
+</script>
 
-    <!-- SECTION 2 -->
-    <section id="s2">
-        <div class="duo-card">
-            <div class="duo-header">
-                <span class="duo-owl">🦉</span>
-                <span class="duo-label">Today's Lesson</span>
-            </div>
-            <h2 style="color:var(--gold); margin-bottom:15px;">Why Ruby is Magic 💖</h2>
-            <ul class="lesson-items">
-                <li class="lesson-item"><span>🌟 She turned a language app into a beautiful story.</span></li>
-                <li class="lesson-item"><span>🦋 Her heart is deeper than the ocean.</span></li>
-                <li class="lesson-item"><span>🌙 She is the Sun to my Moon.</span></li>
-                <li class="lesson-item"><span>✨ Distance is just a number for us.</span></li>
-            </ul>
-            <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
-            <p style="font-size:0.8rem; margin-top:10px; color:var(--teal);">+100 XP — Ruby Streak Active! 🔥</p>
-        </div>
-    </section>
+<!-- ===== SECTION 1: INTRO ===== -->
+<section id="s1">
+  <div class="moon-wrap">
+    <div class="moon-circle"></div>
+    <div class="moon-face">🌙</div>
+  </div>
 
-    <!-- SECTION 3 -->
-    <section id="s3">
-        <div class="cosmos-wrap">
-            <div class="orbit"></div>
-            <div class="sun-body">☀️</div>
-            <div class="moon-body">🌙</div>
-        </div>
-        <div style="text-align:center; max-width:500px;">
-            <h2 style="font-family:'Playfair Display'; color:var(--gold);">"Tú eres mi Sol, yo soy tu Luna"</h2>
-            <div class="divider"></div>
-            <p><span class="lang-tag">HI</span> Tune kaha tha—"Tu mera Moon hai." Us din se sab badal gaya.</p>
-            <p style="margin-top:10px;"><span class="lang-tag">ES</span> El sol necesita a la luna, y la luna siempre vuelve.</p>
-        </div>
-    </section>
+  <h1 class="glitch-title">Feliz Cumpleaños<br>Ruby ✨</h1>
+  <p class="subtitle">A little surprise… from across the oceans 🌊</p>
 
-    <!-- SECTION 4 -->
-    <section id="s4">
-        <h2 style="font-family:'Playfair Display'; margin-bottom:30px;">Kuch Dil Ki Baatein 💌</h2>
-        <div class="msgs-grid">
-            <div class="msg-card">
-                <h3>🌹 Favorite Memory</h3>
-                <p>That moment when we realized timezones don't matter when hearts talk.</p>
-            </div>
-            <div class="msg-card" style="border-color:var(--gold)">
-                <h3>✨ What I Love</h3>
-                <p>Tumhari simplicity aur wo tarika jis se tum mujhe samajhti ho.</p>
-            </div>
-        </div>
-    </section>
+  <p style="margin-top:28px; font-size:1rem; color:rgba(255,255,255,0.5); text-align:center; max-width:360px; line-height:1.7;">
+    Ek choti si duniya bani thi Duolingo pe… aur dekho, aaj yahan tak aa gaye 🦉💫
+  </p>
 
-    <!-- SECTION 6 -->
-    <section id="s6" style="text-align:center;">
-        <h1 class="glitch-title" style="font-size:3rem;">Happy Birthday, Ruby 🌹</h1>
-        <p style="font-family:'Dancing Script'; font-size:1.5rem; margin:20px 0;">Always orbiting, always near. 🌙</p>
-        <div style="background:rgba(255,255,255,0.1); padding:15px 30px; border-radius:50px; display:inline-block;">
-            Con mucho amor — <b>Yatish</b> 💛
-        </div>
-    </section>
+  <p class="scroll-hint">↓ scroll to begin ↓</p>
+</section>
 
-    <script>
-        // Fix 1: Fireflies with proper backticks
-        for (let i = 0; i < 15; i++) {
-            const f = document.createElement('div');
-            f.className = 'firefly';
-            f.style.left = Math.random() * 100 + 'vw';
-            f.style.bottom = '0vh';
-            f.style.width = (Math.random() * 5 + 2) + 'px';
-            f.style.height = f.style.width;
-            f.style.background = ['#f5c842','#ff6b9d','#7fffd4'][Math.floor(Math.random()*3)];
-            f.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            f.style.animationDelay = (Math.random() * 5) + 's';
-            document.body.appendChild(f);
-        }
+<!-- ===== SECTION 2: DUOLINGO LESSON ===== -->
+<section id="s2">
+  <div class="duo-card">
+    <div class="duo-header">
+      <span class="duo-owl">🦉</span>
+      <span class="duo-label">Today's Lesson</span>
+    </div>
 
-        // Fix 2: Stars Canvas with proper template literals
-        const canvas = document.getElementById('stars-canvas');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
+    <h2 class="lesson-title">"Por qué Ruby es increíble" 💖</h2>
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+    <ul class="lesson-items" id="lessonList">
+      <li class="lesson-item">
+        <span class="check">🌟</span>
+        <span>She turned a language app into something magical — because <em>she's</em> magic.</span>
+      </li>
+      <li class="lesson-item">
+        <span class="check">🦋</span>
+        <span>Uski emotional depth… the way she feels things — it's rare &amp; beautiful.</span>
+      </li>
+      <li class="lesson-item">
+        <span class="check">🌙</span>
+        <span>She called him her Moon. <span class="lang-tag es">ES</span> <em>El universo lo supo antes que ellos.</em></span>
+      </li>
+      <li class="lesson-item">
+        <span class="check">✨</span>
+        <span>Mexico to India — different timezones, same heartbeat.</span>
+      </li>
+      <li class="lesson-item">
+        <span class="check">💫</span>
+        <span>Aaj uska janamdin hai — aur yeh din usi ke liye bana hai. 🎂</span>
+      </li>
+    </ul>
 
-        function init() {
-            stars = [];
-            for(let i=0; i<200; i++) {
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() * 1.5,
-                    o: Math.random(),
-                    s: Math.random() * 0.02
-                });
-            }
-        }
+    <div class="xp-bar">
+      <div class="xp-fill" id="xpFill"></div>
+    </div>
+    <p class="xp-label">+100 XP — Ruby Appreciation Streak 🔥</p>
+  </div>
+</section>
 
-        function draw() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            stars.forEach(s => {
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-                ctx.fillStyle = `rgba(255,255,255,${Math.abs(Math.sin(s.o))})`;
-                ctx.fill();
-                s.o += s.s;
-            });
-            requestAnimationFrame(draw);
-        }
+<!-- ===== SECTION 3: MOON & SUN ===== -->
+<section id="s3">
+  <div class="cosmos-wrap">
+    <div class="orbit"></div>
+    <div class="sun-body">☀️</div>
+    <div class="moon-body">🌙</div>
+  </div>
 
-        window.addEventListener('resize', () => { resize(); init(); });
-        resize(); init(); draw();
+  <div class="cosmos-text">
+    <h2>"Tú eres mi Sol, yo soy tu Luna" 🌙☀️</h2>
+    <div class="divider"></div>
+    <p>
+      <span class="lang-tag hi">HI</span>
+      Tune kaha tha — <em style="color:var(--gold)">"Tu mera Moon hai."</em> Aur uss ek baat ne sab kuch badal diya.
+    </p>
+    <p>
+      <span class="lang-tag es">ES</span>
+      <em>El sol necesita a la luna, y la luna siempre vuelve.</em> No importa la distancia.
+    </p>
+    <p>
+      <span class="lang-tag en">EN</span>
+      They say the moon has no light of its own — it only shines because of the sun. Maybe that's us. You make me glow, Ruby. 🌟
+    </p>
+  </div>
+</section>
 
-        // Fix 3: Intersection Observer to make sections appear
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    if(entry.target.id === 's2') {
-                        document.querySelectorAll('.lesson-item').forEach((li, i) => {
-                            setTimeout(() => li.classList.add('show'), i * 300);
-                        });
-                        setTimeout(() => document.getElementById('xpFill').classList.add('loaded'), 500);
-                    }
-                }
-            });
-        }, { threshold: 0.2 });
+<!-- ===== SECTION 4: SPECIAL MESSAGES ===== -->
+<section id="s4">
+  <h2 class="section-heading">Kuch Dil Ki Baatein 💌</h2>
+  <p class="section-sub">Words que el corazón guarda siempre</p>
+  <div class="divider"></div>
 
-        document.querySelectorAll('section').forEach(s => observer.observe(s));
+  <div class="msgs-grid" id="msgsGrid">
 
-        // Scroll progress
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("progress").style.width = scrolled + "%";
+    <!-- CARD 1 — placeholder for Yatish to fill -->
+    <div class="msg-card card-rose">
+      <span class="msg-emoji">🌹</span>
+      <h3>Mi Favorita Memoria</h3>
+      <p>
+        <!-- ADD YOUR MEMORY HERE — e.g., "That first Duolingo streak we shared..." -->
+        <em style="color:rgba(255,255,255,0.3)">[Yatish will add a special memory here 🌸]</em>
+      </p>
+    </div>
+
+    <!-- CARD 2 — placeholder -->
+    <div class="msg-card card-gold">
+      <span class="msg-emoji">✨</span>
+      <h3>Lo que me encanta de ti</h3>
+      <p>
+        <!-- ADD — "What I love about you is..." -->
+        <em style="color:rgba(255,255,255,0.3)">[Un mensaje especial para Ruby 💛]</em>
+      </p>
+    </div>
+
+    <!-- CARD 3 — placeholder -->
+    <div class="msg-card card-teal">
+      <span class="msg-emoji">🌊</span>
+      <h3>Teri Baat Jo Dil Chu Gayi</h3>
+      <p>
+        <!-- ADD — something she said that you'll never forget -->
+        <em style="color:rgba(255,255,255,0.3)">[Vo ek baat jo Yatish bhool nahi sakta 🌊]</em>
+      </p>
+    </div>
+
+    <!-- CARD 4 — placeholder -->
+    <div class="msg-card card-soft">
+      <span class="msg-emoji">🦋</span>
+      <h3>Mera Sapna</h3>
+      <p>
+        <!-- ADD — a dream/wish you have together -->
+        <em style="color:rgba(255,255,255,0.3)">[Ek sapna jo hum dono ka hai 🌙]</em>
+      </p>
+    </div>
+
+  </div>
+
+  <p class="add-msg-note">// Yatish will fill these cards with his heart later 🖊️</p>
+</section>
+
+<!-- ===== SECTION 5: VIBES & GIFS ===== -->
+<section id="s5">
+  <h2 class="section-heading">Birthday Vibes 🎉</h2>
+  <p class="section-sub">Because you deserve all the confetti in the universe ✨</p>
+  <div class="divider"></div>
+
+  <div class="gif-row">
+    <div class="gif-wrap">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGd0NzN6dXNqZnB4aGx1ZnFlcTZheDd4bGhvaHlqdGpqMGp3Z2V1ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26tPplGWjN0xLybiU/giphy.gif" alt="stars" loading="lazy">
+    </div>
+    <div class="gif-wrap">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnVidGNibHBndTZxcW00YXl6dHE3YW5qMzVid3JhMW55NDVkOHpscCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7btW1Js2tBqz6rTG/giphy.gif" alt="birthday cake" loading="lazy">
+    </div>
+    <div class="gif-wrap">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXk2eHhkejNucm9hN2J0bzk3aWZ0OHIwNDg2ZTRxeHp6Y2V2YThwbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jPR6QX5pnqM/giphy.gif" alt="moon vibes" loading="lazy">
+    </div>
+    <div class="gif-wrap">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDFhZ3BkNGFxcDBsdjFqYjl4NXpkNnFhYmxzbnRzaG5jdHU2M3g5bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9IgG50Lg7rusOJO/giphy.gif" alt="confetti" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: FINAL ===== -->
+<section id="s6">
+  <span class="final-moon">🌙</span>
+
+  <h2 class="final-title">Happy Birthday,<br>Ruby 🌹</h2>
+
+  <div class="final-poem">
+    Dono ke beech hai <em>samudar</em>,<br>
+    par dil mein hai teri <em>tasveer</em>.<br>
+    <em>Tú eres mi sol</em>, y yo tu luna —<br>
+    always orbiting, always near. 🌙<br><br>
+    May this birthday bring you<br>
+    everything <em>dreamy</em> and <em>beautiful</em>,<br>
+    just like you. ✨
+  </div>
+
+  <div class="from-tag">
+    Con mucho amor 💛 — <span>Yatish</span><br>
+    <span style="font-size:0.85rem; color:rgba(255,255,255,0.5); font-weight:400;">from India, with love &amp; your Moon 🌙</span>
+  </div>
+
+  <div class="hearts-row">💛🌙🌹✨💖</div>
+</section>
+
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// ---- STARS ----
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 220; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.6 + 0.2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.008 + 0.002,
+      offset: Math.random() * Math.PI * 2
+    });
+  }
+}
+
+function drawStars(t) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    const a = 0.3 + 0.7 * Math.abs(Math.sin(t * s.speed + s.offset));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,230,${a})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+
+resizeCanvas();
+initStars();
+requestAnimationFrame(drawStars);
+window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+
+// ---- SCROLL PROGRESS ----
+const progressBar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  progressBar.style.width = pct + '%';
+});
+
+// ---- INTERSECTION OBSERVER ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+
+      // Duolingo lesson stagger
+      if (entry.target.id === 's2') {
+        const items = document.querySelectorAll('.lesson-item');
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('show'), 300 + i * 180);
         });
-    </script>
+        setTimeout(() => document.getElementById('xpFill').classList.add('loaded'), 400);
+      }
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+
 </body>
 </html>
