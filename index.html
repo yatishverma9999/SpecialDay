@@ -49,8 +49,8 @@
 
   #stars-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-  /* Sections initially hidden - Added s-letter here */
-  #s-letter, #s2, #s3, #s4, #s5, #s6 { display: none; }
+  /* Sections initially hidden */
+  #s-letter, #s2, #s3, #s4, #s5, #s6, #s10 { display: none; }
 
   section {
     position: relative; z-index: 1; min-height: 100vh;
@@ -61,7 +61,7 @@
   }
   section.visible { opacity: 1; transform: translateY(0); }
 
-  /* === NEW: SECRET LETTER STYLES === */
+  /* === SECRET LETTER STYLES === */
   .envelope {
     width: 280px; height: 180px; background: #1a0a2e; border: 1px solid var(--gold);
     border-radius: 10px; position: relative; cursor: pointer;
@@ -87,7 +87,7 @@
   .letter-modal.open .parchment { transform: scale(1); opacity: 1; }
   .close-letter-btn { margin-top: 20px; font-family: 'Quicksand'; font-weight: bold; cursor: pointer; color: var(--gold); background: none; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; }
 
-  /* === CELEBRATION STYLES (AS IS) === */
+  /* === CELEBRATION STYLES === */
   #s-celebrate { background: radial-gradient(circle at bottom, #1a0a3e, #0a0015); }
   .balloon-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
   .balloon { position: absolute; width: 45px; height: 60px; border-radius: 50%; opacity: 0; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
@@ -118,7 +118,7 @@
   #pastrySlice.active { display: block; animation: floatSway 3s infinite ease-in-out; }
   @keyframes floatSway { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
 
-  /* === ORIGINAL STYLES (NO LOSS) === */
+  /* === SECTION STYLES (NO LOSS) === */
   #s1 { background: radial-gradient(ellipse at center, #1a0a3e 0%, #0a0015 70%); }
   .moon-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 30px; animation: float 4s ease-in-out infinite; }
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
@@ -197,6 +197,24 @@
   .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 18px auto; border-radius: 99px; }
   .firefly { position: fixed; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0; animation: fly linear infinite; z-index: 0; pointer-events: none; }
   @keyframes fly { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 20% { opacity: 0.8; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-120px) scale(1.2); } }
+
+  /* === NEW: RESPONSE FORM STYLES (FROM CODE 1) === */
+  #s10 { background: radial-gradient(ellipse at 40% 80%,#0a0520,#06000f 65%); }
+  .form-container { max-width: 560px; width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: clamp(28px, 5vw, 48px); backdrop-filter: blur(14px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .form-container h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--gold); margin-bottom: 8px; font-style: italic; }
+  .form-container p { font-size: .93rem; color: rgba(255,255,255,.6); margin-bottom: 28px; line-height: 1.6; }
+  .form-group { margin-bottom: 18px; text-align: left; width: 100%; }
+  .form-group label { display: block; font-size: .8rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 8px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 14px 16px; color: var(--moon); font-family: 'Quicksand', sans-serif; font-size: .95rem; outline: none; transition: border-color .3s ease, box-shadow .3s ease; resize: none; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: rgba(245,200,66,.5); box-shadow: 0 0 0 3px rgba(245,200,66,.08); }
+  .emoji-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .emoji-option { padding: 10px 16px; border-radius: 99px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); cursor: pointer; font-size: 1.1rem; transition: all .3s ease; }
+  .emoji-option:hover, .emoji-option.selected { background: rgba(245,200,66,0.15); border-color: rgba(245,200,66,0.4); transform: scale(1.1); }
+  .submit-btn { width: 100%; padding: 16px; border-radius: 99px; border: none; background: linear-gradient(135deg,#f5c842,#e09b20); color: #06000f; font-family: 'Quicksand', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: all .3s ease; box-shadow: 0 6px 25px rgba(245,200,66,.35); margin-top: 8px; }
+  .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(245,200,66,.5); }
+  #formSuccess { display: none; text-align: center; padding: 20px; }
+  #formSuccess .big-check { font-size: 4rem; display: block; margin-bottom: 16px; }
+  #formSuccess p { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--gold); }
 </style>
 </head>
 <body>
@@ -221,7 +239,7 @@
   }
 </script>
 
-<!-- ===== SECTION 1: INTRO (CONTENT AS IS) ===== -->
+<!-- ===== SECTION 1: INTRO ===== -->
 <section id="s1" class="visible" style="opacity:1; transform:translateY(0);">
   <div class="moon-wrap">
     <div class="moon-circle"></div>
@@ -235,7 +253,7 @@
   <p class="scroll-hint">↓ scroll to begin ↓</p>
 </section>
 
-<!-- ===== INTERACTIVE CELEBRATION SECTION (CAKE) ===== -->
+<!-- ===== INTERACTIVE CELEBRATION SECTION ===== -->
 <section id="s-celebrate" class="visible" style="opacity: 1; transform: translateY(0);">
     <div class="balloon-container" id="balloon-area"></div>
     <div id="giftWrapper" class="gift-container" onclick="revealGift()">
@@ -262,7 +280,7 @@
     </div>
 </section>
 
-<!-- ===== NEW: SECRET LETTER SECTION (Triggered after cake) ===== -->
+<!-- ===== NEW: SECRET LETTER SECTION ===== -->
 <section id="s-letter">
     <h2 style="font-family:'Dancing Script'; margin-bottom:30px; font-size:2.8rem; color:var(--gold);">A Secret Letter... 📩</h2>
     <div class="envelope" onclick="openLetter()">
@@ -271,7 +289,7 @@
     <p style="margin-top:20px; font-size:0.8rem; letter-spacing:2px; color:var(--soft); opacity: 0.8;">CLICK TO UNSEAL</p>
 </section>
 
-<!-- ===== SECTION 2: DUOLINGO (CONTENT AS IS) ===== -->
+<!-- ===== SECTION 2: DUOLINGO (PRESERVED) ===== -->
 <section id="s2">
   <div class="duo-card">
     <div class="duo-header"><span class="duo-owl">🦉</span><span class="duo-label">Today's Lesson</span></div>
@@ -288,7 +306,7 @@
   </div>
 </section>
 
-<!-- ===== SECTION 3: COSMOS (CONTENT AS IS) ===== -->
+<!-- ===== SECTION 3: COSMOS (PRESERVED) ===== -->
 <section id="s3">
   <div class="cosmos-wrap"><div class="orbit"></div><div class="sun-body">☀️</div><div class="moon-body">🌙</div></div>
   <div class="cosmos-text">
@@ -299,7 +317,7 @@
   </div>
 </section>
 
-<!-- ===== SECTION 4: MESSAGES (CONTENT AS IS) ===== -->
+<!-- ===== SECTION 4: MESSAGES (PRESERVED) ===== -->
 <section id="s4">
   <h2 class="section-heading">Kuch Dil Ki Baatein 💌</h2><p class="section-sub">Words que el corazón guarda siempre</p><div class="divider"></div>
   <div class="msgs-grid" id="msgsGrid">
@@ -319,7 +337,7 @@ and that you never stop being the beautiful soul you are. ❤️</em></p></div>
   Until then, I'll keep learning and improving myself, mi hermosa. 💗💫</p>
 </section>
 
-<!-- ===== SECTION 5: GIFS (CONTENT AS IS) ===== -->
+<!-- ===== SECTION 5: GIFS (PRESERVED) ===== -->
 <section id="s5">
   <h2 class="section-heading">Birthday Vibes 🎉</h2><p class="section-sub">Because you deserve all the confetti in the universe ✨</p><div class="divider"></div>
   <div class="gif-row">
@@ -330,12 +348,62 @@ and that you never stop being the beautiful soul you are. ❤️</em></p></div>
   </div>
 </section>
 
-<!-- ===== SECTION 6: FINAL (CONTENT AS IS) ===== -->
+<!-- ===== SECTION 6: FINAL (PRESERVED) ===== -->
 <section id="s6">
   <span class="final-moon">🌙</span><h2 class="final-title">Happy Birthday,<br>Mi Ruby 🌸</h2>
   <div class="final-poem">Dono ke beech hai <em>samudar</em>,<br>par dil mein hai tumhari <em>tasveer</em>.<br><em>Tú eres mi sol</em>, y yo tu luna -<br>always orbiting, always near. 🌙<br><br>May this birthday bring you everything <em>dreamy</em> and <em>beautiful</em>, just like you. ✨</div>
   <div class="from-tag">Con mucho amor 💛 - <span>Yatish</span><br><span style="font-size:0.85rem; color:rgba(255,255,255,0.5); font-weight:400;">from India, with love &amp; your Moon 🌙</span></div>
   <div class="hearts-row">💛🌙🌹✨💖</div>
+</section>
+
+<!-- ===== NEW: SECTION 10: RESPONSE FORM (EXACT TEMPLATE FROM CODE 1) ===== -->
+<section id="s10">
+  <div class="form-container">
+    <h2>Tu Respuesta, Ruby 💌</h2>
+    <p>Yatish is waiting across the world — tell him what you felt! Every word will reach him instantly. 🌙</p>
+    <div id="theForm">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="fName" placeholder="Ruby 🌹" maxlength="60">
+      </div>
+      <div class="form-group">
+        <label>How did this make you feel? 🌟</label>
+        <div class="emoji-row" id="emojiPicker">
+          <div class="emoji-option" onclick="pickEmoji(this,'😭')">😭</div>
+          <div class="emoji-option" onclick="pickEmoji(this,'🥹')">🥹</div>
+          <div class="emoji-option" onclick="pickEmoji(this,'💛')">💛</div>
+          <div class="emoji-option" onclick="pickEmoji(this,'🌙')">🌙</div>
+          <div class="emoji-option" onclick="pickEmoji(this,'😍')">😍</div>
+          <div class="emoji-option" onclick="pickEmoji(this,'🤯')">🤯</div>
+          <div class="emoji-option" onclick="pickEmoji(this,'✨')">✨</div>
+        </div>
+        <input type="hidden" id="fEmoji" value="">
+      </div>
+      <div class="form-group">
+        <label>Your message to Yatish 💬</label>
+        <textarea id="fMessage" rows="4" placeholder="Tell him what you felt, what you loved, what surprised you… 🌙"></textarea>
+      </div>
+      <div class="form-group">
+        <label>One word that describes this surprise?</label>
+        <input type="text" id="fWord" placeholder="e.g. magical, beautiful, wow…" maxlength="40">
+      </div>
+      <div class="form-group">
+        <label>Rating ⭐</label>
+        <select id="fRating">
+          <option value="">Choose…</option>
+          <option>⭐⭐⭐⭐⭐ — Perfect! Loved every bit!</option>
+          <option>⭐⭐⭐⭐ — Really beautiful!</option>
+          <option>⭐⭐⭐ — Sweet!</option>
+          <option>🌙 — Beyond stars!</option>
+        </select>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Send to Yatish 🌙💌</button>
+    </div>
+    <div id="formSuccess">
+      <span class="big-check">💌</span>
+      <p>Your words just flew across the ocean to India… 🌊🌙<br>Yatish will smile when he reads this. 💛</p>
+    </div>
+  </div>
 </section>
 
 <!-- OVERLAY: SECRET LETTER MODAL -->
@@ -351,7 +419,7 @@ and that you never stop being the beautiful soul you are. ❤️</em></p></div>
 </div>
 
 <script>
-// --- STARS LOGIC (AS IS) ---
+// --- STARS LOGIC ---
 const canvas = document.getElementById('stars-canvas');
 const ctx = canvas.getContext('2d');
 let stars = [];
@@ -361,7 +429,7 @@ function drawStars(t) { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.
 resize(); initStars(); requestAnimationFrame(drawStars);
 window.addEventListener('resize', () => { resize(); initStars(); });
 
-// --- MUSIC LOGIC (AS IS) ---
+// --- MUSIC LOGIC ---
 const audio = document.getElementById('bg-music');
 const playIcon = document.getElementById('icon-play');
 const pauseIcon = document.getElementById('icon-pause');
@@ -370,10 +438,10 @@ function toggleMusic() {
     else { audio.pause(); playIcon.style.display="block"; pauseIcon.style.display="none"; }
 }
 
-// --- CELEBRATION FLOW (SCROLLS TO LETTER AFTER CAKE) ---
+// --- CELEBRATION FLOW ---
 function revealGift() {
     document.getElementById('giftWrapper').classList.add('opened');
-    audio.play().catch(e => console.log("Music ready"));
+    audio.play().catch(e => console.log("Music interaction required"));
     setTimeout(() => {
         document.getElementById('giftWrapper').style.display = 'none';
         document.getElementById('decorBtn').style.display = 'block';
@@ -408,16 +476,15 @@ function triggerCut() {
     }, 800);
 }
 function finishCelebration() {
-    // UNLOCK ALL CONTENT (Included s-letter)
-    document.querySelectorAll('#s-letter, #s2, #s3, #s4, #s5, #s6').forEach(s => s.style.display = 'flex');
+
+    document.querySelectorAll('#s-letter, #s2, #s3, #s4, #s5, #s6, #s10').forEach(s => s.style.display = 'flex');
     document.body.style.overflow = 'auto';
     setTimeout(() => {
-        // SCROLL TO SECRET LETTER FIRST
         document.getElementById('s-letter').scrollIntoView({ behavior: 'smooth' });
     }, 100);
 }
 
-// --- NEW: SECRET LETTER LOGIC ---
+// --- SECRET LETTER LOGIC ---
 function openLetter() {
     const modal = document.getElementById('letterModal');
     modal.style.display = 'flex';
@@ -429,13 +496,47 @@ function closeLetter() {
     setTimeout(() => modal.style.display = 'none', 500);
 }
 
-// --- SCROLL & PROGRESS ---
+// --- FORM LOGIC (FROM CODE 1) ---
+let selectedEmoji = '';
+function pickEmoji(el, emo) {
+    document.querySelectorAll('.emoji-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedEmoji = emo;
+    document.getElementById('fEmoji').value = emo;
+}
+
+async function submitForm() {
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx_c1x6QoDs4GTiNpqowA7BlaHSF5TThRl9DvsrFCbbpvJzWWUjVKAL2-CbT-0i8cqOHQ/exec';
+    
+    const name = document.getElementById('fName').value.trim() || 'Ruby 🌹';
+    const msg = document.getElementById('fMessage').value.trim();
+    const word = document.getElementById('fWord').value.trim();
+    const rating = document.getElementById('fRating').value;
+
+    if (!msg) { alert('Please write a little message for Yatish! 💌'); return; }
+
+    const payload = { name, emoji: selectedEmoji || '💖', message: msg, word, rating, timestamp: new Date().toISOString() };
+
+    try {
+        await fetch(WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(payload),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        document.getElementById('theForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+    } catch (err) {
+        console.log('Error:', err);
+    }
+}
+
+// --- SCROLL & OBSERVER ---
 window.addEventListener('scroll', () => {
   const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
   document.getElementById('progress').style.width = pct + '%';
 });
 
-// --- INTERSECTION OBSERVER (STAGGER EFFECT PRESERVED) ---
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -447,7 +548,7 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.15 });
-document.querySelectorAll('section, #s-letter').forEach(s => observer.observe(s));
+document.querySelectorAll('section, #s-letter, #s10').forEach(s => observer.observe(s));
 </script>
 </body>
 </html>
